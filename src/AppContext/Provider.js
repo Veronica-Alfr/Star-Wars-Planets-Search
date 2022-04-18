@@ -20,7 +20,7 @@ const Provider = ({ children }) => {
       {children}
     </Context.Provider>
   );
-  // Ajuda de Halister Santos na requisição da API.
+  // Ajuda de Halister Santos na requisição da API e no PropTypes.
   // Ajuda de Leonardo Araújo na exportação do Provider.
 };
 

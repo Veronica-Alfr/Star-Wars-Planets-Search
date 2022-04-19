@@ -3,11 +3,15 @@ import Context from '../AppContext/Context';
 import Inputs from './Inputs';
 
 function Table() {
-  const { planets: { data }, filterPlanets } = useContext(Context);
-  // const { name } = filterByName;
+  const { planets: { data }, filterPlanets,
+    filterPlanetsByPopulation } = useContext(Context);
+  // const { comparison } = filterByNumericValues;
   const callFilters = () => {
     if (filterPlanets().length > 0) {
       return filterPlanets();
+    }
+    if (filterPlanetsByPopulation().length > 0) {
+      return filterPlanetsByPopulation();
     }
     return data;
   };

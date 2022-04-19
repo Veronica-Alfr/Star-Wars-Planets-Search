@@ -9,6 +9,11 @@ const Provider = ({ children }) => {
   const [filterByName, setFilterByName] = useState({
     name: '',
   });
+  const [filterByNumericValues, setfilterByNumericValues] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: '',
+  });
   useEffect(() => {
     const getData = async () => {
       const dataPlanets = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
@@ -21,9 +26,21 @@ const Provider = ({ children }) => {
   const filterPlanets = () => (
     planets.data.filter(({ name }) => name.toLowerCase().includes(filterByName.name))
   );
+  const filterPlanetsByPopulation = () => (
+    planets.data.filter(({ population }) => population)
+  );
   return (
     <Context.Provider
-      value={ { planets, setPlanets, filterPlanets, setFilterByName, filterByName } }
+      value={
+        { planets,
+          filterByName,
+          filterByNumericValues,
+          setPlanets,
+          filterPlanets,
+          setFilterByName,
+          setfilterByNumericValues,
+          filterPlanetsByPopulation }
+      }
     >
       {children}
     </Context.Provider>

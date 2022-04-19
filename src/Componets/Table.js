@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import Context from '../AppContext/Context';
+import Inputs from './Inputs';
 
 function Table() {
-  const { planets: { data }, filterPlanets,
-    setFilterByName, filterByName } = useContext(Context);
-  const { name } = filterByName;
+  const { planets: { data }, filterPlanets } = useContext(Context);
+  // const { name } = filterByName;
   const callFilters = () => {
     if (filterPlanets().length > 0) {
       return filterPlanets();
@@ -13,13 +13,7 @@ function Table() {
   };
   return (
     <main>
-      <input
-        data-testid="name-filter"
-        type="text"
-        name="filterByName"
-        value={ name }
-        onChange={ ({ target }) => setFilterByName({ name: target.value }) }
-      />
+      <Inputs />
       <table>
         <thead>
           <tr>

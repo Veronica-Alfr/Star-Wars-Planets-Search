@@ -14,6 +14,7 @@ function Table() {
   return (
     <main>
       <input
+        data-testid="name-filter"
         type="text"
         name="filterByName"
         value={ name }

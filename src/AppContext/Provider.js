@@ -19,7 +19,7 @@ const Provider = ({ children }) => {
     getData();
   }, []);
   const filterPlanets = () => (
-    planets.data.filter(({ name }) => name.includes(filterByName.name))
+    planets.data.filter(({ name }) => name.toLowerCase().includes(filterByName.name))
   );
   return (
     <Context.Provider

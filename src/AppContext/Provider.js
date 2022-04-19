@@ -6,6 +6,9 @@ const Provider = ({ children }) => {
   const [planets, setPlanets] = useState({
     data: [],
   });
+  const [filterByName, setFilterByName] = useState({
+    name: '',
+  });
   useEffect(() => {
     const getData = async () => {
       const dataPlanets = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
@@ -15,8 +18,13 @@ const Provider = ({ children }) => {
     };
     getData();
   }, []);
+  const filterPlanets = () => (
+    planets.data.filter(({ name }) => name.includes(filterByName.name))
+  );
   return (
-    <Context.Provider value={ { planets, setPlanets } }>
+    <Context.Provider
+      value={ { planets, setPlanets, filterPlanets, setFilterByName, filterByName } }
+    >
       {children}
     </Context.Provider>
   );

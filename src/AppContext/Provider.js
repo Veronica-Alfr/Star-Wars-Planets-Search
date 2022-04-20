@@ -23,15 +23,15 @@ const Provider = ({ children }) => {
     };
     getData();
   }, []);
-  const filterPlanets = () => (
-    planets.data.filter(({ name }) => name.toLowerCase().includes(filterByName.name))
-  );
-  const filterPlanetsByPopulation = () => {
-    const { column, comparison, value } = filterByNumericValues;
-    console.log(value, column);
-    if (column === 'population' && comparison === 'maior que') {
-      return planets.data.filter(({ population }) => population > value);
-    }
+  // const filterPlanets = () => (
+  //   planets.data.filter(({ name }) => name.toLowerCase().includes(filterByName.name))
+  // );
+  const filterPlanets = () => {
+    // const { column, comparison, value } = filterByNumericValues;
+    // console.log(value, column);
+    // if (column === 'population' && comparison === 'maior que') {
+    //   return planets.data.filter(({ population }) => population > value);
+    // } // acessar chave do obj para pegar chave da função, e usar a estrutura [name2]: value2
   };
   return (
     <Context.Provider

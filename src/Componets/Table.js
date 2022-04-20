@@ -3,17 +3,18 @@ import Context from '../AppContext/Context';
 import Inputs from './Inputs';
 
 function Table() {
-  const { planets: { data }, filterPlanets,
-    filterPlanetsByPopulation } = useContext(Context);
-  // const { comparison } = filterByNumericValues;
+  const { planets: { data },
+    filterByName, filterByNumericValues } = useContext(Context);
   const callFilters = () => {
-    if (filterPlanets().length > 0) {
-      return filterPlanets();
+    let dataPlanets = [...data];
+    if (filterByName.name) {
+      dataPlanets = dataPlanets
+        .filter(({ name }) => name.toLowerCase().includes(filterByName.name));
     }
-    if (filterPlanetsByPopulation().length > 0) {
-      return filterPlanetsByPopulation();
-    } // if funciona, apenas não sei onde colocar para funcionar todos os filters de uma vez
-    return data;
+    if (filterByNumericValues.column) {
+      // lógica dos filtros
+    }
+    return dataPlanets;
   };
   return (
     <main>

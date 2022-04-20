@@ -12,7 +12,7 @@ function Table() {
     }
     if (filterPlanetsByPopulation().length > 0) {
       return filterPlanetsByPopulation();
-    }
+    } // if funciona, apenas não sei onde colocar para funcionar todos os filters de uma vez
     return data;
   };
   return (

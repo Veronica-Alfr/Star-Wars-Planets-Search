@@ -9,7 +9,7 @@ const Provider = ({ children }) => {
   const [filterByName, setFilterByName] = useState({
     name: '',
   });
-  const [filterByNumericValues, setfilterByNumericValues] = useState({
+  const [filterByNumericValues, setFilterByNumericValues] = useState({
     column: 'population',
     comparison: 'maior que',
     value: '',
@@ -26,9 +26,13 @@ const Provider = ({ children }) => {
   const filterPlanets = () => (
     planets.data.filter(({ name }) => name.toLowerCase().includes(filterByName.name))
   );
-  const filterPlanetsByPopulation = () => (
-    planets.data.filter(({ population }) => population)
-  );
+  const filterPlanetsByPopulation = () => {
+    const { column, comparison, value } = filterByNumericValues;
+    console.log(value, column);
+    if (column === 'population' && comparison === 'maior que') {
+      return planets.data.filter(({ population }) => population > value);
+    }
+  };
   return (
     <Context.Provider
       value={
@@ -38,7 +42,7 @@ const Provider = ({ children }) => {
           setPlanets,
           filterPlanets,
           setFilterByName,
-          setfilterByNumericValues,
+          setFilterByNumericValues,
           filterPlanetsByPopulation }
       }
     >

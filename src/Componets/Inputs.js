@@ -8,7 +8,8 @@ function Inputs() {
     value: '',
   });
   const { setFilterByName, filterByName,
-    setFilterByNumericValues, filterPlanetsByPopulation } = useContext(Context);
+    setFilterByNumericValues, filterPlanetsByPopulation,
+    filterByNumericValues } = useContext(Context);
   const { name } = filterByName;
   const { column, comparison, value } = numericFilters;
   const handleChange = ({ target }) => {
@@ -16,7 +17,7 @@ function Inputs() {
     setNumericFilters({ ...numericFilters, [name2]: value2 });
   };
   const handleClick = () => {
-    setFilterByNumericValues(numericFilters);
+    setFilterByNumericValues([...filterByNumericValues, numericFilters]);
     filterPlanetsByPopulation();
   };
   return (

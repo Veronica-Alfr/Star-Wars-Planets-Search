@@ -5,15 +5,19 @@ import Inputs from './Inputs';
 function Table() {
   const { planets: { data },
     filterByName, filterByNumericValues } = useContext(Context);
+  // const { name } = filterByName;
   const callFilters = () => {
     let dataPlanets = [...data];
-    if (filterByName.name) {
+    if (filterByName.name.length > 0) {
       dataPlanets = dataPlanets
         .filter(({ name }) => name.toLowerCase().includes(filterByName.name));
+      console.log(dataPlanets);
     }
-    if (filterByNumericValues.column) {
+    if (filterByNumericValues) {
       // lógica dos filtros
+      // dataPlanets = dataPlanets
     }
+    console.log(dataPlanets);
     return dataPlanets;
   };
   return (

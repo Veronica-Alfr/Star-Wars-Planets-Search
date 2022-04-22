@@ -5,19 +5,31 @@ import Inputs from './Inputs';
 function Table() {
   const { planets: { data },
     filterByName, filterByNumericValues } = useContext(Context);
-  // const { name } = filterByName;
+  console.log(filterByNumericValues);
   const callFilters = () => {
     let dataPlanets = [...data];
+    console.log(dataPlanets);
     if (filterByName.name.length > 0) {
       dataPlanets = dataPlanets
         .filter(({ name }) => name.toLowerCase().includes(filterByName.name));
-      console.log(dataPlanets);
     }
-    if (filterByNumericValues) {
-      // lógica dos filtros
-      // dataPlanets = dataPlanets
+    if (filterByNumericValues.length > 0) {
+      // const { column, comparison, value } = filterByNumericValues;
+      dataPlanets = filterByNumericValues.map((obj) => dataPlanets.filter((planet) => {
+        if (obj.comparison === 'maior que') {
+          return planet[obj.column] > obj.value;
+        }
+        if (obj.comparison === 'menor que') {
+          return planet[obj.column] < obj.value;
+        }
+        if (obj.comparison === 'igual a') {
+          return planet[obj.column] === obj.value;
+        }
+        return planet;
+      }));
+      return dataPlanets[dataPlanets.length - 1];
     }
-    console.log(dataPlanets);
+    console.log(dataPlanets[dataPlanets.length - 1]);
     return dataPlanets;
   };
   return (

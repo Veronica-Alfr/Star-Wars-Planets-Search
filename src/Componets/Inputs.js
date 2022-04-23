@@ -5,7 +5,7 @@ function Inputs() {
   const [numericFilters, setNumericFilters] = useState({
     column: 'population',
     comparison: 'maior que',
-    value: '',
+    value: '0',
   });
   const { setFilterByName, filterByName,
     setFilterByNumericValues, filterByNumericValues } = useContext(Context);

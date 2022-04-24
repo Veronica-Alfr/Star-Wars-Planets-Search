@@ -1,18 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Context from '../AppContext/Context';
 import Inputs from './Inputs';
 
 function Table() {
-  const { planets: { data },
-    filterByName, filterByNumericValues } = useContext(Context);
-  const callFilters = () => {
-    let dataPlanets = [...data];
-    if (filterByName.name.length > 0) {
-      dataPlanets = dataPlanets
-        .filter(({ name }) => name.toLowerCase().includes(filterByName.name));
-    }
-    if (filterByNumericValues.length > 0) {
-      dataPlanets = filterByNumericValues.map((obj) => dataPlanets.filter((planet) => {
+  const { planets: { data }, filterByName, filterByNumericValues,
+    dataCopy, setDataCopy } = useContext(Context);
+  const planets = () => {
+    filterByNumericValues.forEach((obj) => {
+      const dataPlanets = dataCopy.filter((planet) => {
         if (obj.comparison === 'maior que') {
           return Number(planet[obj.column]) > obj.value;
         }
@@ -23,11 +18,26 @@ function Table() {
           return planet[obj.column] === obj.value;
         }
         return planet;
-      }));
-      return dataPlanets[dataPlanets.length - 1];
-    }
-    return dataPlanets;
+      });
+      setDataCopy(dataPlanets);
+    });
   };
+  useEffect(() => {
+    const callFilters = () => {
+      let dataPlanets = [...data];
+      if (filterByName.name.length > 0) {
+        dataPlanets = dataPlanets
+          .filter(({ name }) => name.toLowerCase().includes(filterByName.name));
+      }
+      if (filterByNumericValues.length > 0) {
+        console.log('ola');
+        planets();
+      }
+      setDataCopy(dataPlanets);
+    };
+    callFilters();
+  }, [filterByName, filterByNumericValues]);
+  // Ajuda de Leo Araújo e André Felipe na lógica do requisito 4.
   return (
     <main>
       <Inputs />
@@ -50,7 +60,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {callFilters().map((el) => (
+          {dataCopy.map((el) => (
             <tr key={ el.name }>
               <td>{ el.name }</td>
               <td>{ el.rotation_period }</td>

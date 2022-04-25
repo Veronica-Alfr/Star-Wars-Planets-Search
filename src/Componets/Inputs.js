@@ -7,6 +7,7 @@ function Inputs() {
     comparison: 'maior que',
     value: '0',
   });
+  // console.log(Object.values(numericFilters)[0]);
   const { setFilterByName, filterByName,
     setFilterByNumericValues, filterByNumericValues } = useContext(Context);
   const { name } = filterByName;
@@ -18,6 +19,8 @@ function Inputs() {
   const handleClick = () => {
     setFilterByNumericValues([...filterByNumericValues, numericFilters]);
   };
+  const optionsField = ['population', 'orbital_period', 'diameter',
+    'rotation_period', 'surface_water'];
   return (
     <div>
       <input
@@ -33,11 +36,14 @@ function Inputs() {
         value={ column }
         onChange={ handleChange }
       >
-        <option>population</option>
-        <option>orbital_period</option>
-        <option>diameter</option>
-        <option>rotation_period</option>
-        <option>surface_water</option>
+        { optionsField.map((field, index) => (
+          <option key={ index }>
+            {
+              // numericFilters.filter((el) => field !== el.column)
+              // filterByNumericValues.filter((el) => el.column !== field)
+              field
+            }
+          </option>))}
       </select>
       <select
         data-testid="comparison-filter"

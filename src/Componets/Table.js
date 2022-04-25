@@ -5,9 +5,9 @@ import Inputs from './Inputs';
 function Table() {
   const { planets: { data }, filterByName, filterByNumericValues,
     dataCopy, setDataCopy } = useContext(Context);
-  const planets = () => {
+  const planets = (dataPlanets) => {
     filterByNumericValues.forEach((obj) => {
-      const dataPlanets = dataCopy.filter((planet) => {
+      dataPlanets = dataPlanets.filter((planet) => {
         if (obj.comparison === 'maior que') {
           return Number(planet[obj.column]) > obj.value;
         }
@@ -24,20 +24,21 @@ function Table() {
   };
   useEffect(() => {
     const callFilters = () => {
-      let dataPlanets = [...data];
+      let dataPlanets = [...data]; // spred operator realiza cópia do meu array de planetas original
       if (filterByName.name.length > 0) {
         dataPlanets = dataPlanets
           .filter(({ name }) => name.toLowerCase().includes(filterByName.name));
+        setDataCopy(dataPlanets);
       }
       if (filterByNumericValues.length > 0) {
-        console.log('ola');
-        planets();
+        planets(dataPlanets);
+      } else {
+        setDataCopy(dataPlanets); // serve como default
       }
-      setDataCopy(dataPlanets);
     };
     callFilters();
-  }, [filterByName, filterByNumericValues]);
-  // Ajuda de Leo Araújo e André Felipe na lógica do requisito 4.
+  }, [data, filterByName, filterByNumericValues, setDataCopy]);
+  // Ajuda de Leo Araújo, André Felipe e Laís Nametala na lógica do requisito 4.
   return (
     <main>
       <Inputs />

@@ -11,6 +11,7 @@ const Provider = ({ children }) => {
   });
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
   const [dataCopy, setDataCopy] = useState([]);
+  // a cópia é necessária para não perder os dados originais e evitar loops.
   useEffect(() => {
     const getData = async () => {
       const dataPlanets = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');

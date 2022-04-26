@@ -21,6 +21,7 @@ function Inputs() {
   };
   const optionsField = ['population', 'orbital_period', 'diameter',
     'rotation_period', 'surface_water'];
+  const filterOptions = filterByNumericValues.map((el) => el.column);
   return (
     <div>
       <input
@@ -36,14 +37,9 @@ function Inputs() {
         value={ column }
         onChange={ handleChange }
       >
-        { optionsField.map((field, index) => (
-          <option key={ index }>
-            {
-              // numericFilters.filter((el) => field !== el.column)
-              // filterByNumericValues.filter((el) => el.column !== field)
-              field
-            }
-          </option>))}
+        { optionsField.filter((field) => !filterOptions.includes(field)).map((option) => (
+          <option key={ option }>{ option }</option>
+        ))}
       </select>
       <select
         data-testid="comparison-filter"

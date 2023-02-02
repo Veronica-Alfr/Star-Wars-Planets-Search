@@ -14,7 +14,7 @@ const Provider = ({ children }) => {
   // a cópia é necessária para não perder os dados originais e evitar loops.
   useEffect(() => {
     const getData = async () => {
-      const dataPlanets = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
+      const dataPlanets = await fetch('https://swapi.dev/api/planets');
       const response = await dataPlanets.json();
       setPlanets({ data: response.results });
       setDataCopy(response.results);

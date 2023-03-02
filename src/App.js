@@ -1,16 +1,16 @@
 import React from 'react';
-import './App.css';
 import Provider from './AppContext/Provider';
 import Table from './Componets/Table';
+import ContainerStarWarsFilter from './style/App';
+import './index.css';
 
 function App() {
   return (
-    <div>
+    <ContainerStarWarsFilter>
       <Provider>
-        <h1>Star Wars</h1>
         <Table />
       </Provider>
-    </div>
+    </ContainerStarWarsFilter>
   );
 }
 

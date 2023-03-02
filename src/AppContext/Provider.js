@@ -21,6 +21,7 @@ const Provider = ({ children }) => {
     };
     getData();
   }, []);
+
   return (
     <Context.Provider
       value={

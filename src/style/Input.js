@@ -18,6 +18,12 @@ const ContainerInput = styled.div`
         width: 6%;
     }
 
+    button:hover
+    {
+        opacity: 0.8;
+        background-color: #D19A30;
+    }
+
     input, select {
         font-size: 1em;
     }

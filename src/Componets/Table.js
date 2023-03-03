@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Context from '../AppContext/Context';
 import ContainerTable from '../style/Table';
 import Inputs from './Inputs';
@@ -6,8 +6,6 @@ import Inputs from './Inputs';
 function Table() {
   const { planets: { data }, filterByName, filterByNumericValues,
     dataCopy, setDataCopy } = useContext(Context);
-
-    const [moviesByPlanet, setMoviesByPlanet] = useState([]);
 
   const planets = (dataPlanets) => {
     filterByNumericValues.forEach((obj) => {
@@ -27,30 +25,9 @@ function Table() {
     });
   };
 
-  const getMovies = async (film) => {
-      const dataMovie = await fetch(film);
-      const moviesRelatedByPlanet = await dataMovie.json();
-      return moviesRelatedByPlanet.title;
-  };
-
-  const getPlanetsAndMovies = async (planet) => {
-    const receiveMovies = planet.films.map((film) => getMovies(film));
-    const allMovies = await Promise.all(receiveMovies);
-    return {...planet, movies: allMovies};
-  };
-
-  const moviesStarWarsByPlanet = (dataPlanets) => {
-    const planetsAndMovies = dataPlanets.map((planet) => getPlanetsAndMovies(planet));
-    const planetsRelatedToMovies = Promise.all(planetsAndMovies);
-    setMoviesByPlanet(planetsRelatedToMovies);
-};
-
   useEffect(() => {
     const callFilters = async () => {
       let dataPlanets = [...data]; // spred operator realiza cópia do meu array de planetas original
-
-      moviesStarWarsByPlanet(dataPlanets);
-      // getMoviesRelatedByPlanet();
 
       if (filterByName.name.length > 0) {
         dataPlanets = dataPlanets
@@ -101,9 +78,7 @@ function Table() {
               <td>{ el.terrain }</td>
               <td>{ el.surface_water }</td>
               <td>{ el.population }</td>
-              <td className='row-films'>{'A vingança dos Sith, Ataque dos Clones...'}</td>
-              { console.log(moviesByPlanet) }
-              {/* <td>{ moviesByTitle().join(', ') }</td> */}
+              <td>{ el.movies.join(', ') }</td>
               <td>{ el.created }</td>
               <td>{ el.edited }</td>
               <td>{ el.url }</td>

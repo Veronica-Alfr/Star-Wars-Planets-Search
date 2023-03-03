@@ -5,7 +5,7 @@ import ContainerInput from '../style/Input';
 function Inputs() {
   const [numericFilters, setNumericFilters] = useState({
     column: 'population',
-    comparison: 'maior que',
+    comparison: 'bigger then',
     value: '0',
   });
   // console.log(Object.values(numericFilters)[0]);
@@ -13,16 +13,21 @@ function Inputs() {
     setFilterByNumericValues, filterByNumericValues } = useContext(Context);
   const { name } = filterByName;
   const { column, comparison, value } = numericFilters;
+
   const handleChange = ({ target }) => {
     const { name: name2, value: value2 } = target;
     setNumericFilters({ ...numericFilters, [name2]: value2 });
   };
+
   const handleClick = () => {
     setFilterByNumericValues([...filterByNumericValues, numericFilters]);
   };
+
   const optionsField = ['population', 'orbital_period', 'diameter',
     'rotation_period', 'surface_water'];
+
   const filterOptions = filterByNumericValues.map((el) => el.column);
+
   return (
     <ContainerInput>
       <h1>Star Wars</h1>
